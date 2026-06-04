@@ -82,6 +82,12 @@ variants back to the same branch. So the simplest workflow is:
 It only triggers on master-image/build changes (never on its own variant
 commits), so there's no build loop.
 
+**On pull requests** the same workflow runs in *preview* mode instead: it builds
+the variants but does **not** commit them. It uploads the regenerated files as a
+downloadable **`responsive-images` artifact** and posts a summary comment on the
+PR, so reviewers can inspect the optimized images before merge. The variants are
+then committed automatically once the change lands on a branch via push.
+
 ## Things to customize before launch
 
 These values are used consistently across all pages — search & replace to update:

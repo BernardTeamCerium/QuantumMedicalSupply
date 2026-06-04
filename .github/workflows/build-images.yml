@@ -1,15 +1,19 @@
 name: Build responsive images
 
-# Regenerates the WebP/JPEG variants in assets/images/responsive/ whenever a
-# master photo or the build setup changes, then commits the results back to the
-# same branch — so you never have to run `npm run build:images` locally.
+# Regenerates the WebP/JPEG variants in assets/images/responsive/ from the
+# master photos. Behaviour depends on the event:
 #
-# Loop-safety:
-#   * The trigger only watches the MASTER images / build files below. The job's
-#     auto-commit only touches assets/images/responsive/**, which is NOT in this
-#     list, so it cannot re-trigger itself.
-#   * Pushes authenticated with GITHUB_TOKEN do not start new workflow runs, and
-#     the commit message includes [skip ci] as an extra safeguard.
+#   * push           -> commit the regenerated variants back to the branch, so
+#                       you never have to run `npm run build:images` locally.
+#   * pull_request   -> DO NOT commit. Instead upload the regenerated variants
+#                       as a downloadable artifact and post a summary comment,
+#                       so reviewers can preview them before merge.
+#   * workflow_dispatch -> manual run (behaves like push).
+#
+# Loop-safety: the trigger only watches the MASTER images / build files below.
+# The auto-commit (push only) touches assets/images/responsive/**, which is NOT
+# in this list, so it cannot re-trigger the workflow. Pushes also use
+# GITHUB_TOKEN (which doesn't start new runs) and are tagged [skip ci].
 
 on:
   push:
@@ -19,10 +23,18 @@ on:
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/build-images.yml"
+  pull_request:
+    paths:
+      - "assets/images/*.jpg"
+      - "scripts/generate-images.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/build-images.yml"
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: write       # commit variants on push
+  pull-requests: write  # post preview comment on PRs
 
 concurrency:
   group: build-images-${{ github.ref }}
@@ -32,10 +44,12 @@ jobs:
   build-images:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          # On push, check out the branch so we can commit back. On PRs, use the
+          # default merge ref (preview of the merged result; works for forks too).
+          ref: ${{ github.event_name == 'push' && github.ref_name || '' }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -49,15 +63,85 @@ jobs:
       - name: Generate responsive image variants
         run: npm run build:images
 
-      - name: Commit regenerated variants (if any changed)
+      - name: Detect changed variants
+        id: detect
         run: |
-          if [ -n "$(git status --porcelain assets/images/responsive)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add assets/images/responsive
-            git commit -m "chore: regenerate responsive image variants [skip ci]"
-            git push origin HEAD:${{ github.ref_name }}
-            echo "✅ Committed regenerated image variants."
-          else
-            echo "✅ No image changes — variants already up to date."
+          CHANGED=$(git status --porcelain assets/images/responsive | awk '{print $2}')
+          if [ -z "$CHANGED" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No variant changes detected."
+            exit 0
           fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          mkdir -p _image-preview
+          {
+            echo "| File | Size |"
+            echo "| --- | ---: |"
+          } > /tmp/changed.md
+          for f in $CHANGED; do
+            cp "$f" "_image-preview/$(basename "$f")"
+            printf '| `%s` | %s |\n' "${f#assets/images/responsive/}" "$(du -h "$f" | cut -f1)" >> /tmp/changed.md
+          done
+          echo "Changed variants:"; cat /tmp/changed.md
+
+      # --- push: commit the regenerated variants back to the branch ---
+      - name: Commit regenerated variants
+        if: github.event_name != 'pull_request' && steps.detect.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/images/responsive
+          git commit -m "chore: regenerate responsive image variants [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
+          echo "✅ Committed regenerated image variants."
+
+      # --- pull_request: upload as artifact + comment (no commit) ---
+      - name: Upload variants as artifact
+        if: github.event_name == 'pull_request' && steps.detect.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: responsive-images
+          path: _image-preview/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Comment preview on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const marker = '<!-- responsive-images-bot -->';
+            const changed = '${{ steps.detect.outputs.changed }}' === 'true';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            let body;
+            if (changed) {
+              const table = fs.existsSync('/tmp/changed.md') ? fs.readFileSync('/tmp/changed.md', 'utf8') : '';
+              body = [
+                marker,
+                '### 🖼️ Responsive image preview',
+                '',
+                'This PR changes master photo(s). The optimized WebP/JPEG variants below were generated **but not committed** to this PR:',
+                '',
+                table,
+                `📦 Download them from the **\`responsive-images\` artifact** on [this workflow run](${runUrl}) to review.`,
+                '',
+                '_When this PR is merged (or you push to a branch), the variants are regenerated and committed automatically._',
+              ].join('\n');
+            } else {
+              body = [
+                marker,
+                '### 🖼️ Responsive image preview',
+                '',
+                'No image variants changed for this PR.',
+              ].join('\n');
+            }
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
