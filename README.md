@@ -30,6 +30,7 @@ supplies at little or no cost through Medicare and commercial insurance.
 ├── css/styles.css        # Single design-system stylesheet
 ├── js/main.js            # Mobile nav toggle + footer year
 ├── assets/favicon.svg    # Logo / favicon
+├── assets/images/        # Site photography (see its README to swap in real photos)
 ├── robots.txt
 └── sitemap.xml
 ```
@@ -58,6 +59,11 @@ These values are used consistently across all pages — search & replace to upda
 - **Domain** in `robots.txt` and `sitemap.xml` if not `www.quantummedicalsupply.com`.
 - **Privacy policy** (`privacy.html`) is a starter template and should be
   reviewed by qualified counsel (HIPAA, state law, actual data practices).
+- **Photography:** `assets/images/` ships with branded placeholder images that
+  are already wired into every page. To go live, replace each file with a real
+  photo using the **same filename** — no markup changes needed. See
+  [`assets/images/README.md`](assets/images/README.md) for the slot-by-slot guide
+  (sizes, aspect ratios, and subject suggestions).
 
 ## Design notes
 
