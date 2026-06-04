@@ -1,0 +1,12 @@
+{
+  "name": "quantum-medical-supply-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static marketing website for Quantum Medical Supply.",
+  "scripts": {
+    "build:images": "node scripts/generate-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

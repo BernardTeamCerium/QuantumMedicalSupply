@@ -8,13 +8,35 @@ or CSS changes are needed.
 ## How to replace
 
 1. Pick/license a photo for each slot (see subject suggestions below).
-2. Crop it to roughly the listed aspect ratio and export a **JPG** (quality ~80,
-   ideally < 300 KB each; these are displayed at modest sizes).
+2. Crop it to roughly the listed aspect ratio and export a **JPG** (these are the
+   high-resolution "masters" — don't worry about file size, the build step makes
+   the small versions).
 3. Save it over the matching file in `assets/images/` using the **same name**.
-4. Refresh the site — done.
+4. Run the responsive image build so the optimized versions regenerate:
+
+   ```bash
+   npm install      # first time only
+   npm run build:images
+   ```
+
+5. Refresh the site — done.
 
 > Tip: keep the exact filename and `.jpg` extension. If you only have PNGs, you
 > can either convert to JPG or update the `src` in the HTML to `.png`.
+
+## Responsive variants (auto-generated)
+
+The site serves modern, lightweight images via `<picture>` + `srcset`, choosing
+the smallest file that fits each screen and preferring **WebP** with a **JPEG**
+fallback. Those optimized variants live in **`assets/images/responsive/`** and
+are produced from the masters above by `npm run build:images`
+(see `scripts/generate-images.mjs`).
+
+- **Do not hand-edit** anything in `responsive/` — it's regenerated from the
+  masters. Edit/replace the masters in this folder instead, then rebuild.
+- Each master produces widths of 400 / 800 / 1200 px (plus 1600 px for the hero)
+  in both `.webp` and `.jpg`.
+- The build is incremental: it only rewrites variants whose master changed.
 
 ## Image slots
 

@@ -30,7 +30,11 @@ supplies at little or no cost through Medicare and commercial insurance.
 ├── css/styles.css        # Single design-system stylesheet
 ├── js/main.js            # Mobile nav toggle + footer year
 ├── assets/favicon.svg    # Logo / favicon
-├── assets/images/        # Site photography (see its README to swap in real photos)
+├── assets/images/        # Master photography (see its README to swap in real photos)
+│   └── responsive/       # Auto-generated WebP + JPEG variants (do not hand-edit)
+├── scripts/
+│   └── generate-images.mjs  # Builds responsive image variants with sharp
+├── package.json          # devDependency: sharp; script: build:images
 ├── robots.txt
 └── sitemap.xml
 ```
@@ -44,6 +48,24 @@ No build is required. Just open `index.html` in a browser, or serve the folder:
 python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
+
+## Responsive images (WebP)
+
+Photos are served through `<picture>` + `srcset`, so each browser downloads the
+smallest **WebP** (with a **JPEG** fallback) that fits its screen. The optimized
+variants in `assets/images/responsive/` are committed to the repo, so **no build
+step is needed to deploy or serve the site** — just upload the files.
+
+You only re-run the build when you change a photo:
+
+```bash
+npm install            # first time only (installs sharp)
+npm run build:images   # regenerates assets/images/responsive/ from the masters
+```
+
+The masters are the eight `assets/images/*.jpg` files; replace one (keeping the
+same filename) and re-run the command. See
+[`assets/images/README.md`](assets/images/README.md) for the full photo guide.
 
 ## Things to customize before launch
 
