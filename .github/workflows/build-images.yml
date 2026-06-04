@@ -1,0 +1,63 @@
+name: Build responsive images
+
+# Regenerates the WebP/JPEG variants in assets/images/responsive/ whenever a
+# master photo or the build setup changes, then commits the results back to the
+# same branch — so you never have to run `npm run build:images` locally.
+#
+# Loop-safety:
+#   * The trigger only watches the MASTER images / build files below. The job's
+#     auto-commit only touches assets/images/responsive/**, which is NOT in this
+#     list, so it cannot re-trigger itself.
+#   * Pushes authenticated with GITHUB_TOKEN do not start new workflow runs, and
+#     the commit message includes [skip ci] as an extra safeguard.
+
+on:
+  push:
+    paths:
+      - "assets/images/*.jpg"
+      - "scripts/generate-images.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/build-images.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-images-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate responsive image variants
+        run: npm run build:images
+
+      - name: Commit regenerated variants (if any changed)
+        run: |
+          if [ -n "$(git status --porcelain assets/images/responsive)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/images/responsive
+            git commit -m "chore: regenerate responsive image variants [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+            echo "✅ Committed regenerated image variants."
+          else
+            echo "✅ No image changes — variants already up to date."
+          fi

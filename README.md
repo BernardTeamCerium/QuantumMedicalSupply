@@ -67,6 +67,21 @@ The masters are the eight `assets/images/*.jpg` files; replace one (keeping the
 same filename) and re-run the command. See
 [`assets/images/README.md`](assets/images/README.md) for the full photo guide.
 
+### Automatic builds (GitHub Actions)
+
+You don't have to run the build locally if you don't want to. The workflow
+[`.github/workflows/build-images.yml`](.github/workflows/build-images.yml) runs
+`npm run build:images` automatically whenever you push a changed master photo
+(or the build script), then commits the regenerated `assets/images/responsive/`
+variants back to the same branch. So the simplest workflow is:
+
+1. Replace a master `assets/images/<name>.jpg` (same filename) and push.
+2. The Action regenerates the WebP/JPEG variants and commits them for you —
+   `git pull` to get them locally.
+
+It only triggers on master-image/build changes (never on its own variant
+commits), so there's no build loop.
+
 ## Things to customize before launch
 
 These values are used consistently across all pages — search & replace to update:
