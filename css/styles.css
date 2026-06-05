@@ -552,3 +552,51 @@ h1 { font-weight: 800; }
 
 /* Product/media cards: stronger lift */
 .card--media.card--link:hover { border-color: transparent; box-shadow: 0 16px 36px rgba(28, 77, 126, .18); }
+
+/* Category tag on product cards */
+.card--media .card-media { position: relative; }
+.card-tag {
+  position: absolute; top: 12px; left: 12px; z-index: 1;
+  background: rgba(255, 255, 255, .94); color: var(--navy);
+  font-weight: 600; font-size: .76rem; letter-spacing: .01em;
+  padding: .34rem .7rem; border-radius: 999px; box-shadow: var(--shadow-sm);
+}
+
+/* Hero video: play-button overlay + scrim */
+.hero-play {
+  position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%;
+  border: 0; padding: 0; background: transparent; cursor: pointer;
+  display: grid; place-items: center;
+  transition: opacity .3s ease;
+}
+.hero-play::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(16, 40, 60, 0) 45%, rgba(16, 40, 60, .5));
+}
+.hero-play .play-circle {
+  position: relative; width: 76px; height: 76px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff;
+  background: linear-gradient(135deg, var(--pink), var(--primary));
+  box-shadow: 0 12px 30px rgba(28, 77, 126, .45);
+  transition: transform .2s ease;
+}
+.hero-play .play-circle svg { width: 30px; height: 30px; margin-left: 3px; }
+.hero-play .play-circle::after {
+  content: ""; position: absolute; inset: -10px; border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .65); animation: qms-pulse 2.6s ease-out infinite;
+}
+.hero-play:hover .play-circle { transform: scale(1.08); }
+.hero-play .play-label {
+  position: absolute; left: 16px; bottom: 14px; color: #fff;
+  font-family: var(--font-display); font-weight: 600; font-size: .98rem;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+}
+.hero-play.is-hidden { opacity: 0; pointer-events: none; }
+@keyframes qms-pulse {
+  0% { transform: scale(1); opacity: .7; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+/* Scroll-reveal (added by JS; safe no-op without JS / reduced motion) */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }

@@ -36,11 +36,53 @@
   var y = String(new Date().getFullYear());
   years.forEach(function (el) { el.textContent = y; });
 
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   // Respect "reduced motion": don't autoplay the hero video
   var heroVideo = document.querySelector(".hero-video");
-  if (heroVideo && window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (heroVideo && reduceMotion) {
     heroVideo.removeAttribute("autoplay");
     try { heroVideo.pause(); } catch (e) {}
+  }
+
+  // Hero play button: click to play the video with sound; hide overlay while playing
+  var heroPlay = document.querySelector(".hero-play");
+  if (heroPlay && heroVideo) {
+    heroPlay.addEventListener("click", function () {
+      try {
+        heroVideo.muted = false;
+        heroVideo.controls = true;
+        var p = heroVideo.play();
+        if (p && p.then) {
+          p.then(function () { heroPlay.classList.add("is-hidden"); }).catch(function () {});
+        } else {
+          heroPlay.classList.add("is-hidden");
+        }
+      } catch (e) {}
+    });
+    heroVideo.addEventListener("pause", function () { heroPlay.classList.remove("is-hidden"); });
+  }
+
+  // Scroll-reveal: gently fade/slide sections in as they enter the viewport
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    var revealSel = ".section-head, .card, .split-copy, .split-media, " +
+      ".steps .step, .payers, .cta-band, .faq details, .stats, .note";
+    var revealEls = Array.prototype.slice.call(document.querySelectorAll(revealSel));
+    revealEls.forEach(function (el) {
+      el.classList.add("reveal");
+      // small stagger for items within the same grid
+      var parent = el.parentElement;
+      if (parent && parent.classList.contains("grid")) {
+        var idx = Array.prototype.indexOf.call(parent.children, el);
+        el.style.transitionDelay = Math.min(idx, 5) * 70 + "ms";
+      }
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("is-visible"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    revealEls.forEach(function (el) { io.observe(el); });
   }
 })();
