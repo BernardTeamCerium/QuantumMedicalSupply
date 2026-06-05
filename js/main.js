@@ -35,4 +35,12 @@
   var years = document.querySelectorAll("[data-year]");
   var y = String(new Date().getFullYear());
   years.forEach(function (el) { el.textContent = y; });
+
+  // Respect "reduced motion": don't autoplay the hero video
+  var heroVideo = document.querySelector(".hero-video");
+  if (heroVideo && window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    heroVideo.removeAttribute("autoplay");
+    try { heroVideo.pause(); } catch (e) {}
+  }
 })();
