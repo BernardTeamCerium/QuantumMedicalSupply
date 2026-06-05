@@ -185,7 +185,7 @@ h3 { font-size: clamp(1.15rem, 1.8vw, 1.4rem); }
 }
 .nav-toggle svg { width: 22px; height: 22px; color: var(--navy); }
 
-@media (max-width: 880px) {
+@media (max-width: 1024px) {
   .nav-toggle { display: inline-flex; }
   .nav-links {
     position: absolute; left: 0; right: 0; top: 100%;
@@ -600,3 +600,8 @@ h1 { font-weight: 800; }
 /* Scroll-reveal (added by JS; safe no-op without JS / reduced motion) */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Promo banner (top of homepage) */
+.promo-banner { display: block; line-height: 0; background: #f7c61a; transition: opacity .15s ease; }
+.promo-banner img { width: 100%; height: auto; display: block; }
+.promo-banner:hover { opacity: .95; }
