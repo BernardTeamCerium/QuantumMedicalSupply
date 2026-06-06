@@ -692,3 +692,36 @@ h1 { font-weight: 800; }
 .article-figure img { width: 100%; height: auto; display: block; }
 .back-link { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; margin-top: 2.4rem; }
 .back-link .ico { width: 1em; height: 1em; }
+
+/* ---------------------- Trust badges ---------------------- */
+.badges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.5vw, 1.6rem); }
+@media (max-width: 760px) { .badges { grid-template-columns: repeat(2, 1fr); } }
+.badge-item { text-align: center; display: flex; flex-direction: column; align-items: center; gap: .6rem; }
+.badge-item .ib {
+  width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center;
+  background: var(--primary-050); color: var(--primary-600);
+}
+.badge-item:nth-child(2n) .ib { background: var(--accent-050); color: var(--accent-600); }
+.badge-item .ib .ico { width: 28px; height: 28px; }
+.badge-item b { font-family: var(--font-display); color: var(--navy); font-size: .98rem; }
+.badge-item span { color: var(--muted); font-size: .85rem; }
+
+/* ------------------ Sticky mobile call bar ------------------ */
+.mobile-cta { display: none; }
+@media (max-width: 760px) {
+  .mobile-cta {
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: .5rem;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+    padding: .55rem .7rem calc(.55rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, .97); border-top: 1px solid var(--line);
+    box-shadow: 0 -6px 18px rgba(28, 77, 126, .14);
+  }
+  .mobile-cta a {
+    display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+    font-weight: 700; font-size: .96rem; padding: .75rem; border-radius: 11px; line-height: 1;
+  }
+  .mobile-cta .ico { width: 1.05em; height: 1.05em; }
+  .mobile-cta__call { background: var(--primary-050); color: var(--primary-600); }
+  .mobile-cta__apply { background: linear-gradient(135deg, #ff6fa5 0%, var(--accent) 55%, #d23f7c 100%); color: #fff; }
+  body { padding-bottom: 70px; }
+}
