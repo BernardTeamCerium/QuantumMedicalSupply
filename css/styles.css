@@ -725,3 +725,10 @@ h1 { font-weight: 800; }
   .mobile-cta__apply { background: linear-gradient(135deg, #ff6fa5 0%, var(--accent) 55%, #d23f7c 100%); color: #fff; }
   body { padding-bottom: 70px; }
 }
+
+/* ------------------ Accreditation logos row ------------------ */
+.accred { margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line); padding-top: clamp(1.6rem, 3vw, 2.2rem); }
+.accred-caption { text-align: center; text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; font-weight: 700; color: var(--muted); margin-bottom: 1.2rem; }
+.accred-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.accred-tile { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: .5rem 1rem; height: 86px; display: grid; place-items: center; box-shadow: var(--shadow-sm); }
+.accred-tile img { height: 100%; width: auto; opacity: .92; }
