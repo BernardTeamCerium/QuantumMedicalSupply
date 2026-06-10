@@ -616,6 +616,7 @@ h1 { font-weight: 800; }
   -webkit-text-fill-color: transparent; color: transparent;
 }
 .stats--lg .lbl { margin-top: .35rem; font-weight: 500; }
+.stats--3 { grid-template-columns: repeat(3, 1fr) !important; max-width: 760px; margin-inline: auto; }
 .stats-note { text-align: center; color: var(--muted); font-size: .82rem; margin-top: 1.3rem; }
 
 /* Hero rating cue */
