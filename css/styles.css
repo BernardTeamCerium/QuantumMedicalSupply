@@ -602,8 +602,8 @@ h1 { font-weight: 800; }
 .reveal.is-visible { opacity: 1; transform: none; }
 
 /* Promo banner (top of homepage) */
-.promo-banner { display: block; line-height: 0; background: #f7c61a; transition: opacity .15s ease; }
-.promo-banner img { width: 100%; height: auto; display: block; }
+.promo-banner { display: flex; justify-content: center; line-height: 0; background: #f7c61a; transition: opacity .15s ease; }
+.promo-banner img { width: auto; max-width: 100%; height: auto; display: block; }
 .promo-banner:hover { opacity: .95; }
 
 /* Bold stats band */
