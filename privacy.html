@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Consent Mode v2 defaults (denied until the visitor accepts) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("consent","default",{"ad_storage":"denied","ad_user_data":"denied","ad_personalization":"denied","analytics_storage":"denied","functionality_storage":"granted","security_storage":"granted","wait_for_update":500});
+    try{if(localStorage.getItem("qms-consent")==="granted"){gtag("consent","update",{"ad_storage":"granted","ad_user_data":"granted","ad_personalization":"granted","analytics_storage":"granted"});}}catch(e){}
+  </script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
   new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
@@ -84,6 +91,10 @@
 
           <h2>How we share information</h2>
           <p>We may share information with your insurance payer, your healthcare providers, and trusted service partners as needed to fulfill your requests, and as required by law. We do not sell your personal information.</p>
+
+          <h2>Cookies &amp; tracking</h2>
+          <p>We use cookies and similar technologies — including Google Tag Manager and analytics tools — to understand how visitors use our website and to improve your experience. Analytics and advertising cookies are only set <b>after you accept</b> them through our cookie banner. Essential cookies needed for the site to function are always active.</p>
+          <p>When you first visit, you can choose to <b>Accept</b> or <b>Decline</b> non-essential tracking. Until you accept, analytics and advertising storage are disabled by default (using Google Consent Mode). You can change your choice at any time using the <b>Cookie Preferences</b> link in the footer, or by clearing your browser's site data. You can also control cookies through your browser settings.</p>
 
           <h2>Protected health information</h2>
           <p>Any protected health information (PHI) we handle is treated in accordance with applicable privacy laws, including HIPAA where it applies. Please do not send sensitive health information by email; we will collect any needed details through a secure process.</p>

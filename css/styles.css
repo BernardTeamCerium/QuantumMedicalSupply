@@ -766,3 +766,25 @@ h1 { font-weight: 800; }
 @media (max-width: 640px) {
   .form-grid, .form-checks { grid-template-columns: 1fr; }
 }
+
+/* ----------------------- Cookie consent ----------------------- */
+.cookie-consent {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
+  transform: translateY(115%); transition: transform .3s ease;
+  pointer-events: none;
+}
+.cookie-consent.is-open { transform: translateY(0); pointer-events: auto; }
+.cookie-consent__inner {
+  max-width: var(--container); margin: .8rem auto;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); padding: 1rem 1.2rem;
+  display: flex; gap: .9rem 1.4rem; align-items: center; justify-content: space-between; flex-wrap: wrap;
+}
+.cookie-consent__text { margin: 0; font-size: .9rem; color: var(--body); max-width: 72ch; }
+.cookie-consent__actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+.cookie-consent__actions .btn { padding: .7rem 1.4rem; }
+@media (max-width: 760px) {
+  .cookie-consent__inner { margin: .6rem; padding: .9rem 1rem; }
+  .cookie-consent__actions { width: 100%; }
+  .cookie-consent__actions .btn { flex: 1; justify-content: center; }
+}
