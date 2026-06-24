@@ -689,6 +689,13 @@ h1 { font-weight: 800; }
 .more--soon .ico { display: none; }
 .article { max-width: 760px; margin-inline: auto; }
 .article .post-meta { margin-bottom: 1.2rem; }
+.article .lead { margin-bottom: 1.4rem; }
+.article p, .article ul, .article ol { margin-bottom: 1.15rem; }
+.article h2 { margin-top: 2.2rem; margin-bottom: .7rem; }
+.article h3 { margin-top: 1.6rem; margin-bottom: .5rem; }
+.article ul, .article ol { padding-left: 1.3rem; list-style: disc; }
+.article ol { list-style: decimal; }
+.article li { margin-bottom: .45rem; }
 .article-figure { margin: 0 0 1.9rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-md); }
 .article-figure img { width: 100%; height: auto; display: block; }
 .back-link { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; margin-top: 2.4rem; }
