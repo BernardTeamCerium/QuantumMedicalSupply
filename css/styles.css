@@ -611,8 +611,19 @@ h1 { font-weight: 800; }
   display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 3.5vw, 3rem);
 }
 .promo-logo { height: 46px; width: auto; display: block; flex: none; }
-.promo-center { display: flex; align-items: center; gap: clamp(.9rem, 2.5vw, 1.6rem); }
-.promo-tag { font-style: italic; font-weight: 800; font-size: clamp(1rem, 1.6vw, 1.25rem); color: #1c2b3a; white-space: nowrap; }
+
+/* transitioning frame stage (center) */
+.promo-stage { position: relative; flex: 1 1 auto; height: 46px; min-width: 0; }
+.promo-frame {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  opacity: 0; /* static fallback: only the CTA frame shows */
+}
+.promo-frame--cta { opacity: 1; }
+.promo-msg, .promo-tag {
+  font-weight: 800; font-size: clamp(1rem, 1.7vw, 1.3rem); color: #1c2b3a;
+  text-align: center; white-space: nowrap; line-height: 1.15;
+}
+.promo-tag { font-style: italic; }
 .promo-cta {
   display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap;
   background: #17222e; color: #fff; font-weight: 700; font-size: clamp(.95rem, 1.4vw, 1.05rem);
@@ -620,35 +631,44 @@ h1 { font-weight: 800; }
 }
 .promo-cta .ico { width: 1.05em; height: 1.05em; }
 .promo-abbott { height: 26px; width: auto; display: block; flex: none; }
-.promo-note { font-size: .72rem; line-height: 1.25; color: #4a4327; max-width: 220px; }
+.promo-note { font-size: .72rem; line-height: 1.25; color: #4a4327; max-width: 200px; flex: none; }
 
 /* moving sheen sweeping across the bar */
 .promo-shine {
   position: absolute; top: 0; left: 0; height: 100%; width: 40%;
-  background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.5), transparent);
   transform: translateX(-160%) skewX(-18deg); pointer-events: none;
 }
 
-/* entrance + attention animations */
+/* keyframes */
 @keyframes promo-in-left { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: none; } }
 @keyframes promo-in-right { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
-@keyframes promo-in-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes promo-pulse { 0%,100% { transform: scale(1); box-shadow: 0 6px 16px rgba(0,0,0,.18); } 50% { transform: scale(1.06); box-shadow: 0 8px 22px rgba(0,0,0,.28); } }
 @keyframes promo-sweep { 0% { transform: translateX(-160%) skewX(-18deg); } 100% { transform: translateX(360%) skewX(-18deg); } }
+/* each frame is visible for one 25% slice of the 12s loop, cross-fading */
+@keyframes promo-cycle {
+  0%   { opacity: 0; transform: translateY(9px); }
+  3%   { opacity: 1; transform: translateY(0); }
+  22%  { opacity: 1; transform: translateY(0); }
+  25%  { opacity: 0; transform: translateY(-9px); }
+  100% { opacity: 0; transform: translateY(-9px); }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .promo-in-left { animation: promo-in-left .6s ease-out both; }
-  .promo-in-up { animation: promo-in-up .6s ease-out .15s both; }
   .promo-in-right { animation: promo-in-right .6s ease-out .3s both; }
-  .promo-cta { animation: promo-pulse 2.4s ease-in-out 1.1s infinite; }
-  .promo-shine { animation: promo-sweep 5.5s ease-in-out 1.6s infinite; }
+  .promo-frame { animation: promo-cycle 12s ease-in-out infinite; animation-delay: calc(var(--i) * 3s); }
+  .promo-frame--cta { opacity: 0; } /* handed back to the animation */
+  .promo-frame--cta .promo-cta { animation: promo-pulse 1.8s ease-in-out infinite; }
+  .promo-shine { animation: promo-sweep 6s ease-in-out 1s infinite; }
 }
 .promo-banner:hover .promo-cta { background: #223142; }
 
 @media (max-width: 720px) {
   .promo-inner { gap: 1rem; padding: 7px 1rem; }
   .promo-logo { height: 36px; }
-  .promo-tag, .promo-abbott, .promo-note { display: none; }
+  .promo-stage { height: 40px; }
+  .promo-abbott, .promo-note { display: none; }
 }
 
 /* Bold stats band */
