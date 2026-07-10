@@ -648,13 +648,13 @@ h1 { font-weight: 800; }
 /* keyframes */
 @keyframes promo-pulse { 0%,100% { transform: scale(1); box-shadow: 0 6px 16px rgba(0,0,0,.18); } 50% { transform: scale(1.06); box-shadow: 0 8px 22px rgba(0,0,0,.28); } }
 @keyframes promo-sweep { 0% { transform: translateX(-160%) skewX(-18deg); } 100% { transform: translateX(360%) skewX(-18deg); } }
-/* 5 frames — each visible for one 20% slice of the 15s loop, cross-fading */
+/* 5 frames — each visible for one 20% slice of the 15s loop, scaling in like the source ad */
 @keyframes promo-cycle {
-  0%   { opacity: 0; }
-  2.5% { opacity: 1; }
-  18%  { opacity: 1; }
-  20%  { opacity: 0; }
-  100% { opacity: 0; }
+  0%   { opacity: 0; transform: scale(.955); }
+  2.5% { opacity: 1; transform: scale(1); }
+  17%  { opacity: 1; transform: scale(1); }
+  20%  { opacity: 0; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
