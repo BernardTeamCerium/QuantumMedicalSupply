@@ -612,20 +612,18 @@ h1 { font-weight: 800; }
 .pf--cta { opacity: 1; } /* static fallback: show the CTA frame if animations are off */
 
 /* left photo panel (circular right edge) — used on frames 1–4 */
+/* pre-masked hero photo (circular edge baked in) shown full-height on the left */
 .pf-photo {
-  position: relative; flex: 0 0 clamp(150px, 17vw, 250px); align-self: stretch;
-  background: url("../assets/banners/patient.jpg") center 22% / cover no-repeat,
-              url("../assets/banners/freestyle-libre-logo.png") center / 76% no-repeat, #ffd200;
-  border-radius: 0 999px 999px 0;
+  position: relative; flex: 0 0 clamp(140px, 17vw, 224px); align-self: stretch;
+  background: url("../assets/banners/hero1.png") left center / contain no-repeat;
 }
-.pf--intro .pf-photo { background: url("../assets/banners/patient.jpg") center 22% / cover no-repeat, linear-gradient(135deg,#4a5a68,#33404b); }
-.pf-onlogo { position: absolute; left: 8%; top: 50%; transform: translateY(-50%); width: 62%; height: auto; }
+.pf-onlogo { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 52%; height: auto; }
 /* the white sensor "applies" onto the arm (background img — no broken icon if absent) */
 .pf-sensor {
-  position: absolute; left: 50%; top: 50%; width: 42%; aspect-ratio: 1;
+  position: absolute; left: 33%; top: 71%; width: 24%; aspect-ratio: 1;
   transform: translate(-50%,-50%);
   background: url("../assets/banners/sensor.png") center / contain no-repeat;
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,.25));
+  filter: drop-shadow(0 3px 7px rgba(0,0,0,.3));
 }
 
 /* left logo panel — used on the CTA frame */
@@ -675,12 +673,12 @@ h1 { font-weight: 800; }
 }
 /* sensor scales down + rotates onto the arm as its frame appears (frame 4 window: 60–80% of 15s) */
 @keyframes promo-sensor {
-  0%   { opacity: 0; transform: translate(-50%,-58%) scale(1.9) rotate(-16deg); }
-  3%   { opacity: 1; transform: translate(-50%,-52%) scale(1.55) rotate(-14deg); }
-  9%   { opacity: 1; transform: translate(-50%,-52%) scale(1.55) rotate(-14deg); }
-  16%  { opacity: 1; transform: translate(6%, 34%) scale(.30) rotate(4deg); }
-  20%  { opacity: 1; transform: translate(6%, 34%) scale(.30) rotate(4deg); }
-  20.01%,100% { opacity: 0; transform: translate(6%, 34%) scale(.30) rotate(4deg); }
+  0%   { opacity: 0; transform: translate(-50%,-50%) scale(2.7) rotate(-16deg) translateY(-12%); }
+  4%   { opacity: 1; transform: translate(-50%,-50%) scale(2.4) rotate(-12deg) translateY(-7%); }
+  9%   { opacity: 1; transform: translate(-50%,-50%) scale(2.4) rotate(-12deg) translateY(-7%); }
+  16%  { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(3deg); }
+  20%  { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(3deg); }
+  20.01%,100% { opacity: 0; transform: translate(-50%,-50%) scale(1) rotate(3deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
