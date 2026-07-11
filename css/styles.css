@@ -601,27 +601,44 @@ h1 { font-weight: 800; }
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
 
-/* Promo banner (top of homepage) — animated */
+/* Promo banner (top of homepage) — animated, photo-driven frames */
 .promo-banner {
   position: relative; display: block; overflow: hidden; text-decoration: none;
-  background: #ffd200; color: #16242e;
+  background: #ffd200; color: #16242e; min-height: 96px;
 }
-.promo-inner {
-  max-width: 1200px; margin-inline: auto; padding: 8px clamp(1rem, 4vw, 2rem);
-  display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 3.5vw, 3rem);
-}
-.promo-banner { min-height: 96px; }
 
-/* each frame is a full banner layer; they cross-fade */
-.pf { position: absolute; inset: 0; opacity: 0; }
+/* each frame is a full banner layer; they scale-fade in sequence */
+.pf { position: absolute; inset: 0; opacity: 0; display: flex; align-items: stretch; }
 .pf--cta { opacity: 1; } /* static fallback: show the CTA frame if animations are off */
-.pf-grid {
-  max-width: 1200px; margin-inline: auto; height: 100%;
-  padding: 8px clamp(1rem, 4vw, 2rem);
-  display: grid; grid-template-columns: auto 1fr auto minmax(0, 300px);
-  align-items: center; gap: clamp(1rem, 3vw, 2.6rem);
+
+/* left photo panel (circular right edge) — used on frames 1–4 */
+.pf-photo {
+  position: relative; flex: 0 0 clamp(150px, 17vw, 250px); align-self: stretch;
+  background: url("../assets/banners/patient.jpg") center 22% / cover no-repeat,
+              url("../assets/banners/freestyle-libre-logo.png") center / 76% no-repeat, #ffd200;
+  border-radius: 0 999px 999px 0;
 }
+.pf--intro .pf-photo { background: url("../assets/banners/patient.jpg") center 22% / cover no-repeat, linear-gradient(135deg,#4a5a68,#33404b); }
+.pf-onlogo { position: absolute; left: 8%; top: 50%; transform: translateY(-50%); width: 62%; height: auto; }
+/* the white sensor "applies" onto the arm (background img — no broken icon if absent) */
+.pf-sensor {
+  position: absolute; left: 50%; top: 50%; width: 42%; aspect-ratio: 1;
+  transform: translate(-50%,-50%);
+  background: url("../assets/banners/sensor.png") center / contain no-repeat;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,.25));
+}
+
+/* left logo panel — used on the CTA frame */
+.pf-logopanel { flex: 0 0 clamp(150px, 17vw, 250px); display: flex; align-items: center; justify-content: center; }
 .pf-logo { height: 46px; width: auto; display: block; }
+
+/* right-hand content */
+.pf-body {
+  flex: 1 1 auto; min-width: 0; height: 100%;
+  padding: 8px clamp(1rem, 3vw, 2rem);
+  display: grid; grid-template-columns: 1fr auto minmax(0, 290px);
+  align-items: center; gap: clamp(1rem, 3vw, 2.4rem);
+}
 .pf-head {
   text-align: center; font-weight: 800; color: #16242e;
   font-size: clamp(1.05rem, 1.9vw, 1.5rem); line-height: 1.14;
@@ -656,19 +673,31 @@ h1 { font-weight: 800; }
   20%  { opacity: 0; transform: scale(1); }
   100% { opacity: 0; transform: scale(1); }
 }
+/* sensor scales down + rotates onto the arm as its frame appears (frame 4 window: 60–80% of 15s) */
+@keyframes promo-sensor {
+  0%   { opacity: 0; transform: translate(-50%,-58%) scale(1.9) rotate(-16deg); }
+  3%   { opacity: 1; transform: translate(-50%,-52%) scale(1.55) rotate(-14deg); }
+  9%   { opacity: 1; transform: translate(-50%,-52%) scale(1.55) rotate(-14deg); }
+  16%  { opacity: 1; transform: translate(6%, 34%) scale(.30) rotate(4deg); }
+  20%  { opacity: 1; transform: translate(6%, 34%) scale(.30) rotate(4deg); }
+  20.01%,100% { opacity: 0; transform: translate(6%, 34%) scale(.30) rotate(4deg); }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .pf { animation: promo-cycle 15s ease-in-out infinite; animation-delay: calc(var(--i) * 3s); }
   .pf--cta { opacity: 0; } /* handed back to the animation */
   .pf--cta .promo-cta { animation: promo-pulse 1.8s ease-in-out infinite; }
+  .pf-sensor { animation: promo-sensor 15s ease-in-out infinite; animation-delay: calc(var(--i) * 3s); }
   .promo-shine { animation: promo-sweep 6s ease-in-out 1s infinite; }
 }
 .promo-banner:hover .promo-cta { background: #223142; }
 
 @media (max-width: 720px) {
-  .promo-banner { min-height: 64px; }
-  .pf-grid { grid-template-columns: auto 1fr; gap: 1rem; padding: 7px 1rem; }
-  .pf-logo { height: 34px; }
+  .promo-banner { min-height: 60px; }
+  .pf-photo, .pf-logopanel { flex-basis: 108px; }
+  .pf--cta .pf-logopanel { flex-basis: 130px; }
+  .pf-logo { height: 30px; }
+  .pf-body { grid-template-columns: 1fr; padding: 6px .9rem; }
   .pf-abbott, .pf-disc { display: none; }
   .pf-head { font-size: 1rem; }
 }
