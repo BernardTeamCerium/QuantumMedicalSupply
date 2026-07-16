@@ -607,8 +607,12 @@ h1 { font-weight: 800; }
   background: #ffd200; color: #16242e; min-height: 112px;
 }
 
-/* each frame is a full banner layer; they scale-fade in sequence */
-.pf { position: absolute; inset: 0; opacity: 0; display: flex; align-items: stretch; }
+/* each frame is a full banner layer; they scale-fade in sequence.
+   content is centered within a leaderboard-like max width so it reads like the reference */
+.pf {
+  position: absolute; inset: 0; opacity: 0; display: flex; align-items: stretch;
+  padding-inline: max(0px, calc((100% - 1080px) / 2));
+}
 .pf--cta { opacity: 1; } /* static fallback: show the CTA frame if animations are off */
 
 /* left photo panel (circular right edge) — used on frames 1–4 */
@@ -644,7 +648,7 @@ h1 { font-weight: 800; }
   font-size: clamp(1rem, 1.7vw, 1.35rem); line-height: 1.12;
 }
 .pf-head sup { font-size: .6em; }
-.pf-head--cta { display: flex; align-items: center; justify-content: center; gap: clamp(.9rem, 2.5vw, 1.6rem); }
+.pf-head--cta { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .35rem; }
 .promo-cta {
   display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap;
   background: #17222e; color: #fff; font-weight: 700; font-size: clamp(.95rem, 1.4vw, 1.1rem);
