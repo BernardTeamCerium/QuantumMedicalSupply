@@ -667,6 +667,9 @@ h1 { font-weight: 800; }
 }
 .pf--intro .pf-abbott, .pf--cta .pf-abbott { display: block; }
 .pf--intro .pf-disc, .pf--cta .pf-disc { text-align: left; }
+/* CTA carries the full ISI block — wider column + smaller type so it fits the box */
+.pf--cta .pf-body { grid-template-columns: 1fr auto minmax(0, 400px); }
+.pf--cta .pf-disc { font-size: 8.6px; line-height: 1.28; }
 
 /* moving sheen sweeping across the bar */
 .promo-shine {
