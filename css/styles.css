@@ -632,7 +632,7 @@ h1 { font-weight: 800; }
 
 /* left logo panel — used on the CTA frame */
 .pf-logopanel { flex: 0 0 clamp(200px, 23vw, 320px); display: flex; align-items: center; justify-content: center; }
-.pf-logo { height: 58px; width: auto; display: block; }
+.pf-logo { height: 84px; width: auto; display: block; }
 
 /* MESSAGE frames (2–5): headline centered with the small disclaimer directly below, no Abbott */
 .pf-body {
