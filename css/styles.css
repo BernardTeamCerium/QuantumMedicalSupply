@@ -621,6 +621,8 @@ h1 { font-weight: 800; }
   position: relative; flex: 0 0 clamp(200px, 23vw, 320px); align-self: stretch;
   background: url("../assets/banners/hero-nosensor.png") left center / contain no-repeat;
 }
+/* frames 4 & 5: sensor has been applied — show the photo with the sensor on his arm */
+.pf--worn .pf-photo { background: url("../assets/banners/hero1.png") left center / contain no-repeat; }
 .pf-onlogo { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 64%; height: auto; }
 /* the white sensor "applies" onto the arm (background img — no broken icon if absent) */
 .pf-sensor {
@@ -665,7 +667,7 @@ h1 { font-weight: 800; }
   grid-template-areas: "head abbott disc";
   column-gap: clamp(1rem, 2.5vw, 2rem); row-gap: 0;
 }
-.pf--intro .pf-abbott, .pf--cta .pf-abbott { display: block; }
+.pf--intro .pf-abbott, .pf--cta .pf-abbott { display: block; height: 56px; }
 .pf--intro .pf-disc, .pf--cta .pf-disc { text-align: left; }
 /* CTA carries the full ISI block — wider column so the larger type still fits the box */
 .pf--cta .pf-body { grid-template-columns: 1fr auto minmax(0, 480px); }
