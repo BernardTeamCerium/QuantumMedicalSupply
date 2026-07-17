@@ -715,13 +715,22 @@ h1 { font-weight: 800; }
 .promo-banner:hover .promo-cta { background: #223142; }
 
 @media (max-width: 720px) {
-  .promo-banner { min-height: 64px; }
-  .pf-photo, .pf-logopanel { flex-basis: 108px; }
-  .pf--cta .pf-logopanel { flex-basis: 130px; }
+  .promo-banner { min-height: 92px; }
+  .pf-photo, .pf-logopanel { flex: 0 0 86px; }
+  .pf--cta .pf-logopanel { flex-basis: 104px; }
   .pf-logo { height: 30px; }
-  .pf-body { display: flex; align-items: center; justify-content: center; padding: 6px .9rem; }
-  .pf-abbott, .pf-disc { display: none; }
-  .pf-head { font-size: 1rem; }
+  .pf-onlogo { width: 76%; }
+  /* collapse every frame body to a simple centered headline */
+  .pf-body, .pf--intro .pf-body, .pf--cta .pf-body {
+    display: flex; align-items: center; justify-content: center; padding: 6px .7rem;
+  }
+  .pf-abbott, .pf--intro .pf-abbott, .pf--cta .pf-abbott, .pf-disc { display: none; }
+  .pf-head, .pf--intro .pf-head {
+    font-size: clamp(.72rem, 3vw, .95rem); line-height: 1.14; text-align: center;
+  }
+  .pf-head--cta { flex-direction: column; gap: .25rem; }
+  .promo-cta { font-size: .82rem; padding: .42rem .85rem; }
+  .promo-tag { font-size: .85rem; }
 }
 
 /* Bold stats band */
