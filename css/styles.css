@@ -120,6 +120,8 @@ h3 { font-size: clamp(1.15rem, 1.8vw, 1.4rem); }
 }
 .btn--ghost:hover { --btn-fg: var(--navy); background: var(--primary-050); border-color: var(--primary-050); }
 .btn--white { --btn-bg: #fff; --btn-fg: var(--navy); }
+.btn--login { --btn-bg: var(--navy); --btn-fg: #fff; border-color: var(--navy); }
+.btn--login:hover { --btn-bg: var(--navy-700); border-color: var(--navy-700); }
 .btn--outline-white {
   --btn-bg: transparent; --btn-fg: #fff; border-color: rgba(255,255,255,.5); box-shadow: none;
 }
