@@ -152,7 +152,12 @@ h3 { font-size: clamp(1.15rem, 1.8vw, 1.4rem); }
 }
 .topbar .tb-login:hover { background: rgba(255,255,255,.15); }
 .topbar .tb-login .ico { width: 1em; height: 1em; opacity: 1; }
-.topbar .tb-store { font-weight: 500; }
+.topbar .tb-store {
+  display: inline-flex; align-items: center; gap: .38rem; font-weight: 600;
+  background: #fff; color: var(--navy); border-radius: 999px; padding: .18rem .85rem;
+}
+.topbar .tb-store:hover { background: var(--bg-tint); color: var(--navy); }
+.topbar .tb-store .ico { width: 1em; height: 1em; opacity: 1; }
 @media (max-width: 720px) {
   .topbar .container { gap: .35rem .9rem; }
   .topbar .tb-right { margin-left: 0; }
