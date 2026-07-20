@@ -144,6 +144,19 @@ h3 { font-size: clamp(1.15rem, 1.8vw, 1.4rem); }
 }
 .topbar .tb-item { display: inline-flex; align-items: center; gap: .4rem; }
 .topbar .ico { width: 1em; height: 1em; opacity: .9; }
+/* utility links (login / store) pushed to the right of the top bar */
+.topbar .tb-right { margin-left: auto; display: inline-flex; align-items: center; gap: clamp(.7rem, 2vw, 1.3rem); }
+.topbar .tb-login {
+  display: inline-flex; align-items: center; gap: .38rem;
+  border: 1px solid rgba(255,255,255,.5); border-radius: 999px; padding: .18rem .8rem; font-weight: 600;
+}
+.topbar .tb-login:hover { background: rgba(255,255,255,.15); }
+.topbar .tb-login .ico { width: 1em; height: 1em; opacity: 1; }
+.topbar .tb-store { font-weight: 500; }
+@media (max-width: 720px) {
+  .topbar .container { gap: .35rem .9rem; }
+  .topbar .tb-right { margin-left: 0; }
+}
 
 .site-header {
   position: sticky; top: 0; z-index: 100;
