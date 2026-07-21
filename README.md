@@ -96,7 +96,7 @@ These values are used consistently across all pages — search & replace to upda
   `https://sales.quantummedicalsupply.com/` (opens in a new tab). Replace this
   with the real external eligibility/referral form URL if different.
 - **Phone:** `(800) 704-6515` (links use `tel:+18007046515`).
-- **Email:** `info@quantummedicalsupply.com`.
+- **Email:** `orders@quantummedicalsupply.com`.
 - **Address:** `1818 S Australian Ave, Ste 301, West Palm Beach, FL 33409`.
 - **Hours:** `Mon–Fri, 8:00 AM – 5:00 PM ET`.
 - **Domain** in `robots.txt` and `sitemap.xml` if not `www.quantummedicalsupply.com`.
