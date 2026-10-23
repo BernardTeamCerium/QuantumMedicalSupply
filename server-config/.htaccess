@@ -1,0 +1,11 @@
+# OPTIONAL — Apache only. Place at the site root to serve extensionless URLs
+# (/providers -> providers.html) and a friendly 404. If you use this, you can
+# delete the /providers, /contact, ... redirect folders.
+Options +FollowSymLinks
+RewriteEngine On
+# If "/name" has no file but "/name.html" exists, serve it (same URL, no redirect)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([a-zA-Z0-9/_-]+)$ $1.html [L]
+ErrorDocument 404 /404.html
