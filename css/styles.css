@@ -621,6 +621,12 @@ h1 { font-weight: 800; }
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
 
+/* Top ad banner (728x90 GWD embed) */
+.topbanner { background:#fff; border-bottom:1px solid var(--line); display:flex; justify-content:center; align-items:flex-start; overflow:hidden; }
+.topbanner .adslot { position:relative; width:728px; height:90px; flex:0 0 auto; transform-origin:top center; }
+.topbanner .adslot > iframe { display:block; border:0; width:728px; height:90px; }
+.topbanner .adslot__link { position:absolute; inset:0; z-index:2; }
+
 /* Promo banner (top of homepage) — animated, photo-driven frames */
 .promo-banner {
   position: relative; display: block; overflow: hidden; text-decoration: none;

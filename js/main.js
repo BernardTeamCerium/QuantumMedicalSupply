@@ -146,3 +146,19 @@
     });
   })();
 })();
+
+// ---- Scale fixed-size ad slots (e.g. 728x90) to fit narrow screens ----
+(function(){
+  function fitAds(){
+    document.querySelectorAll('.adslot[data-ad-w]').forEach(function(slot){
+      var w=+slot.getAttribute('data-ad-w'), h=+slot.getAttribute('data-ad-h');
+      var avail=(slot.parentElement ? slot.parentElement.clientWidth : w);
+      var scale=Math.min(1, avail/w);
+      slot.style.transform = scale<1 ? 'scale('+scale+')' : '';
+      slot.style.marginBottom = scale<1 ? (h*scale-h)+'px' : '';
+    });
+  }
+  window.addEventListener('load', fitAds);
+  window.addEventListener('resize', fitAds);
+  if (document.readyState!=='loading') fitAds();
+})();
