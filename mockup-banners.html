@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banner Placement Mock-up — Quantum Medical Supply</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  body{background:#eef2f6;margin:0;font-family:Inter,system-ui,sans-serif;color:#16242e}
+  .mk-wrap{max-width:1180px;margin:0 auto;padding:24px 16px 80px}
+  .mk-title{font-family:Poppins,sans-serif;font-weight:800;color:#1c4d7e;margin:10px 0 4px}
+  .mk-note{color:#5b6b78;font-size:.9rem;margin:0 0 26px}
+  .mk-card{background:#fff;border:1px solid #e4eaef;border-radius:14px;box-shadow:0 6px 20px rgba(16,36,46,.06);margin:0 0 30px;overflow:hidden}
+  .mk-head{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid #eef2f6;background:#f8fafc}
+  .mk-chip{background:#1c4d7e;color:#fff;border-radius:999px;font-size:.72rem;font-weight:700;padding:3px 10px;letter-spacing:.02em}
+  .mk-head h2{font-size:1rem;margin:0;color:#1c4d7e}
+  .mk-head .where{color:#5b6b78;font-size:.82rem;margin-left:auto}
+  .mk-body{padding:20px}
+  /* faux site header */
+  .faux-top{background:var(--navy,#1c4d7e);color:#fff;font-size:.8rem;padding:6px 16px;text-align:center}
+  .faux-nav{display:flex;align-items:center;gap:18px;padding:12px 18px;border-bottom:1px solid #e4eaef;background:#fff}
+  .faux-nav .brand{font-family:Poppins;font-weight:800;color:#1c4d7e}
+  .faux-nav a{color:#334;text-decoration:none;font-size:.9rem;font-weight:600}
+  .faux-nav .sp{margin-left:auto}
+  /* ad slot */
+  .adslot{position:relative;margin:0 auto;background:#fff}
+  .adslot__click{position:absolute;inset:0;z-index:2}
+  .adslot iframe{display:block;border:0}
+  .adbar{background:#fff;border-bottom:1px solid #e4eaef;padding:10px 0;display:flex;justify-content:center}
+  .ph{display:flex;align-items:center;justify-content:center;text-align:center;border:2px dashed #9bb3c7;border-radius:8px;background:repeating-linear-gradient(45deg,#f4f8fb,#f4f8fb 12px,#eaf1f7 12px,#eaf1f7 24px);color:#3f6080;font-weight:700;font-size:.85rem;line-height:1.4}
+  .ph small{display:block;font-weight:500;color:#5b6b78;margin-top:4px}
+  /* article + rail layouts */
+  .art{max-width:680px;margin:0 auto}
+  .art h1{font-family:Poppins;color:#16242e}
+  .art p{color:#33424d;line-height:1.7}
+  .rail-layout{display:grid;grid-template-columns:1fr 300px;gap:28px}
+  .rail h3,.art-body h3{font-family:Poppins}
+  @media(max-width:860px){.rail-layout{grid-template-columns:1fr}.rail{order:-1}}
+</style>
+</head>
+<body>
+<div class="mk-wrap">
+  <p class="mk-title" style="font-size:1.5rem">Banner Placement Mock-up</p>
+  <p class="mk-note">Preview only — nothing is live. The <b>728×90 animates for real</b> (hosted from the GWD export). The 300×250 and 300×600 show sized placeholders until those exports arrive. CTA click-through goes to the eligibility form.</p>
+
+  <!-- 1. HEADER 728x90 -->
+  <div class="mk-card">
+    <div class="mk-head"><span class="mk-chip">728×90</span><h2>Header banner — every page + homepage</h2><span class="where">sits at the very top, above the nav</span></div>
+    <div class="mk-body" style="padding:0">
+      <div class="adbar">
+        <div class="adslot" style="width:728px;height:90px;max-width:100%">
+          <a class="adslot__click" href="https://portal.quantummedicalsupply.com/#/apply_now?utm_source=banner-728" target="_blank" rel="noopener" aria-label="Check your eligibility"></a>
+          <iframe src="banners/728x90/index.html" width="728" height="90" title="FreeStyle Libre 3 — Check eligibility now" scrolling="no"></iframe>
+        </div>
+      </div>
+      <div class="faux-top">(800) 704-6515 · orders@quantummedicalsupply.com · Mon–Fri 8–5 ET</div>
+      <nav class="faux-nav"><span class="brand">Quantum Medical</span><a>Home</a><a>Patients</a><a>Providers</a><a>Products</a><a>About</a><a>Blog</a><a>Contact</a><span class="sp"></span><a style="color:#e0568c">Check Eligibility</a></nav>
+      <div style="padding:26px 18px;color:#5b6b78">…rest of the page…</div>
+    </div>
+  </div>
+
+  <!-- 2. ARTICLE 300x250 -->
+  <div class="mk-card">
+    <div class="mk-head"><span class="mk-chip">300×250</span><h2>Inside blog articles</h2><span class="where">within the article body</span></div>
+    <div class="mk-body">
+      <div class="art art-body">
+        <h1>How to Get Diabetic Shoes Through Medicare</h1>
+        <p>For people living with diabetes, the right footwear is more than comfort — it's protection. Therapeutic shoes and inserts reduce pressure and lower the risk of complications…</p>
+        <div class="adbar" style="border:0;background:transparent">
+          <div class="adslot ph" style="width:300px;height:250px">300×250 banner here<small>awaiting GWD export — will animate like the 728</small></div>
+        </div>
+        <p>…the good news is that for many people, Medicare helps pay for them. Here's how it works, and how we handle the paperwork for you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. INNER PAGE 300x600 right rail -->
+  <div class="mk-card">
+    <div class="mk-head"><span class="mk-chip">300×600</span><h2>Inner pages — right rail</h2><span class="where">new sidebar column (Patients, Providers, Products, About, Contact…)</span></div>
+    <div class="mk-body">
+      <div class="rail-layout">
+        <div class="art-body">
+          <h1 style="font-family:Poppins;margin-top:0">For Patients</h1>
+          <p>We help you get diabetic shoes, compression garments, and continuous glucose monitors at little to no out-of-pocket cost through your insurance…</p>
+          <h3>How it works</h3>
+          <p>We verify your benefits, coordinate with your doctor, and deliver your supplies — then remind you when it's time to reorder.</p>
+          <p>Navigating insurance is confusing. Our team handles eligibility checks, prescriptions, and prior authorizations start to finish.</p>
+        </div>
+        <aside class="rail">
+          <div class="adslot ph" style="width:300px;height:600px">300×600 banner here<small>right rail · awaiting GWD export</small></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
