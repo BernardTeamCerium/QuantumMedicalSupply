@@ -621,6 +621,14 @@ h1 { font-weight: 800; }
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
 
+/* Inner-page right rail (300x600 ad) */
+.rail-wrap { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: clamp(1.5rem,3vw,2.75rem); align-items: start; }
+.rail-aside { position: sticky; top: 90px; }
+.rail-aside .adslot { position: relative; width: 300px; height: 600px; margin-inline: auto; }
+.rail-aside .adslot iframe { display: block; border: 0; width: 300px; height: 600px; }
+.rail-aside .adslot__link { position: absolute; inset: 0; z-index: 2; }
+@media (max-width: 920px) { .rail-wrap { grid-template-columns: 1fr; } .rail-aside { position: static; margin-top: 1.75rem; } }
+
 /* Top ad banner (728x90 GWD embed) */
 .topbanner { background:#fff; border-bottom:1px solid var(--line); display:flex; justify-content:center; align-items:flex-start; overflow:hidden; }
 .topbanner .adslot { position:relative; width:728px; height:90px; flex:0 0 auto; transform-origin:top center; }
