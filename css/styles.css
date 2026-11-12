@@ -550,7 +550,7 @@ h1 { font-weight: 800; }
 }
 .hero-media .media-frame { position: relative; z-index: 1; }
 .hero-chip {
-  position: absolute; z-index: 2; left: -14px; bottom: 20px;
+  position: absolute; z-index: 2; left: -14px; top: 20px;
   display: flex; gap: .65rem; align-items: center; max-width: 250px;
   background: #fff; border: 1px solid var(--line); border-radius: 14px;
   box-shadow: var(--shadow-lg); padding: .7rem .95rem;
