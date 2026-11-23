@@ -995,3 +995,10 @@ h1 { font-weight: 800; }
   .show-slide,.show-slide img,.show-dots i{animation:none}
   .show-slide.s1{opacity:1}
 }
+
+/* ===== In-content 728x90 banner (homepage + articles) ===== */
+.inline-banner { margin: clamp(1.75rem, 4vw, 2.75rem) 0; display: flex; justify-content: center; }
+.inline-banner .container { display: flex; justify-content: center; width: 100%; }
+.inline-banner .adslot { position: relative; width: 728px; height: 90px; flex: 0 0 auto; transform-origin: top center; overflow: hidden; }
+.inline-banner .adslot > iframe { display: block; border: 0; width: 728px; height: 90px; }
+.inline-banner .adslot__link { position: absolute; inset: 0; z-index: 2; }
