@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=300, height=250">
+<title>FreeStyle Libre 3 Plus by Abbott — Check eligibility now (300x250)</title>
+<style>
+  html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #ffd200; }
+  .stage { position: relative; width: 100%; height: 100%; }
+  .frame { position: absolute; inset: 0; opacity: 0; animation: cf 18s infinite; }
+  .frame img { display: block; width: 100%; height: 100%; }
+  .f1 { animation-delay: 0s; }
+  .f2 { animation-delay: 3s; }
+  .f3 { animation-delay: 6s; }
+  .f4 { animation-delay: 9s; }
+  .f5 { animation-delay: 12s; }
+  .f6 { animation-delay: 15s; }
+  @keyframes cf {
+    0%   { opacity: 0; }
+    2%   { opacity: 1; }
+    15%  { opacity: 1; }
+    17%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  /* If motion is reduced, show the CTA frame statically */
+  @media (prefers-reduced-motion: reduce) {
+    .frame { animation: none; opacity: 0; }
+    .f6 { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="frame f1"><img src="f1.jpg" alt="Living with diabetes and on Medicare?"></div>
+    <div class="frame f2"><img src="f2.jpg" alt="The FreeStyle Libre 3 Plus sensor is widely covered by Medicare for patients managing diabetes with insulin."></div>
+    <div class="frame f3"><img src="f3.jpg" alt="The FreeStyle Libre 3 Plus sensor is widely covered by Medicare for patients managing diabetes with insulin."></div>
+    <div class="frame f4"><img src="f4.jpg" alt="It's easy to apply and wear."></div>
+    <div class="frame f5"><img src="f5.jpg" alt="No fingersticks needed."></div>
+    <div class="frame f6"><img src="f6.jpg" alt="Check eligibility now. This is progress."></div>
+  </div>
+</body>
+</html>
